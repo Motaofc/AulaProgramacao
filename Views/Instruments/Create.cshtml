@@ -1,0 +1,26 @@
+@model a14468_employes_management.Models.Instrument
+
+<h1>Criar Instrumento</h1>
+
+<form asp-action="Create">
+
+    <div class="form-group">
+        <label>Tipo Instrumento</label>
+        <input asp-for="TipoInstrumento" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Nome Instrumento</label>
+        <input asp-for="NomeInstrumento" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Usa Cordas</label>
+        <input asp-for="UsaCordas" />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Guardar
+    </button>
+
+</form>

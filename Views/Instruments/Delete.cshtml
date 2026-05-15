@@ -1,0 +1,17 @@
+@model a14468_employes_management.Models.Instrument
+
+<h1>Eliminar</h1>
+
+<h3>Tem a certeza?</h3>
+
+<div>
+    <p>@Model.NomeInstrumento</p>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+
+        <button type="submit" class="btn btn-danger">
+            Eliminar
+        </button>
+    </form>
+</div>

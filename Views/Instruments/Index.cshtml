@@ -1,0 +1,30 @@
+@model IEnumerable<a14468_employes_management.Models.Instrument>
+
+<h1>Instruments</h1>
+
+<a asp-action="Create" class="btn btn-primary">Novo Instrumento</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Instrumento</th>
+            <th>Usa Cordas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.TipoInstrumento</td>
+            <td>@item.NomeInstrumento</td>
+            <td>@item.UsaCordas</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
