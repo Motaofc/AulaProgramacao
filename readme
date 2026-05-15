@@ -1,0 +1,236 @@
+🚀 Como Criar uma Nova Página no Projeto (Igual ao Employees)
+
+Se já tens o projeto a funcionar e consegues abrir a página Employees, então criar uma nova funcionalidade é basicamente repetir a mesma estrutura.
+
+🧠 Como Funciona o Módulo Employees
+
+O módulo Employees é composto por 4 partes principais:
+
+Model        → Define os dados
+DbContext    → Liga à base de dados
+Controller   → Controla as ações
+Views        → Mostram as páginas
+
+Para criar um novo módulo (por exemplo Products), vais criar exatamente estas 4 partes.
+
+🎯 Exemplo: Criar um Módulo de Produtos
+
+Vamos criar um sistema para gerir produtos.
+
+O sistema terá:
+
+Nome do produto
+Preço
+Quantidade em stock
+Categoria
+📁 PASSO 1 — Criar o Model
+
+Na pasta Models, cria o ficheiro:
+
+Models/Product.cs
+
+Conteúdo:
+
+using System.ComponentModel.DataAnnotations;
+
+namespace EmployeesManagement.Models
+{
+    public class Product
+    {
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "Nome do Produto")]
+        public string Name { get; set; }
+
+        [Display(Name = "Preço")]
+        public decimal Price { get; set; }
+
+        [Display(Name = "Quantidade")]
+        public int Quantity { get; set; }
+
+        [Display(Name = "Categoria")]
+        public string Category { get; set; }
+    }
+}
+🗄️ PASSO 2 — Adicionar ao ApplicationDbContext
+
+Abre:
+
+Data/ApplicationDbContext.cs
+
+Adiciona:
+
+public DbSet<Product> Products { get; set; }
+
+E garante que tens o namespace:
+
+using EmployeesManagement.Models;
+🔄 PASSO 3 — Criar Migration
+
+No Package Manager Console:
+
+Add-Migration AddProductsTable
+Update-Database
+
+Isto vai:
+
+Criar a tabela Products
+Atualizar a base de dados
+🎮 PASSO 4 — Criar o Controller e as Views Automaticamente
+
+No Visual Studio:
+
+Clica com o botão direito na pasta Controllers
+Seleciona Add → New Scaffolded Item
+Escolhe MVC Controller with views, using Entity Framework
+Clica em Add
+Preenche assim:
+Model class: Product
+Data context class: ApplicationDbContext
+Controller name: ProductsController
+
+Clica em Add.
+
+⚡ O Visual Studio Vai Criar Automaticamente
+Controller
+Controllers/ProductsController.cs
+Views
+Views/Products/
+    Index.cshtml
+    Create.cshtml
+    Edit.cshtml
+    Details.cshtml
+    Delete.cshtml
+🌐 PASSO 5 — Executar o Projeto
+
+Pressiona F5.
+
+Abre no navegador:
+
+https://localhost:xxxx/Products
+🎉 Resultado
+
+Terás um módulo completo com:
+
+📋 Listagem de produtos
+➕ Criar produto
+✏️ Editar produto
+🔍 Ver detalhes
+🗑️ Apagar produto
+
+Exatamente como o módulo Employees.
+
+📌 PASSO 6 — Adicionar ao Menu Lateral
+
+Abre o layout do menu (normalmente em):
+
+Views/Shared/_AdminLTELayout.cshtml
+
+ou
+
+Views/Shared/_Layout.cshtml
+
+Adiciona:
+
+<li class="nav-item">
+    <a asp-controller="Products" asp-action="Index" class="nav-link">
+        <i class="nav-icon fas fa-box"></i>
+        <p>Products</p>
+    </a>
+</li>
+🖱️ Resultado no Menu
+
+Aparecerá uma nova opção:
+
+📦 Products
+
+Ao clicar, abrirá:
+
+/Products
+🗂️ Estrutura Final
+Models/
+    Product.cs
+
+Controllers/
+    ProductsController.cs
+
+Views/
+    Products/
+        Index.cshtml
+        Create.cshtml
+        Edit.cshtml
+        Details.cshtml
+        Delete.cshtml
+🔁 Processo Resumido
+
+Sempre que quiseres criar um novo módulo:
+
+Criar o Model
+Adicionar DbSet<> ao ApplicationDbContext
+Executar Add-Migration
+Executar Update-Database
+Criar scaffolded controller
+Adicionar ao menu
+🧩 Exemplos de Módulos que Podes Criar
+Customers
+Suppliers
+Courses
+Students
+Invoices
+Orders
+Categories
+Departments
+🏗️ Exemplo: Criar Clientes
+
+Se quiseres criar Customers, basta:
+
+Criar Customer.cs
+Adicionar DbSet<Customer>
+Migration
+Scaffold
+Menu
+
+Depois acedes em:
+
+/Customers
+🧠 Como o Scaffold Funciona
+
+O Visual Studio lê:
+
+O teu Model
+O DbContext
+
+E gera automaticamente:
+
+Controller
+Views
+Código CRUD
+💡 Melhor Estratégia
+
+Quando precisares de uma nova funcionalidade:
+
+Copia o padrão do Employees
+Cria o teu Model
+Usa Scaffold
+Personaliza as páginas
+🏆 Exemplo Real de Projeto
+
+Um sistema de gestão pode ter:
+
+Employees
+Products
+Customers
+Suppliers
+Orders
+Reports
+
+Cada módulo é criado exatamente da mesma forma.
+
+🎓 Regra de Ouro
+
+Se consegues criar um módulo como Employees, consegues criar praticamente qualquer módulo administrativo.
+
+O padrão é sempre:
+
+Model → DbContext → Migration → Scaffold → Menu → Executar
