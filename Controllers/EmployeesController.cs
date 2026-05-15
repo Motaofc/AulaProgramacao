@@ -35,6 +35,7 @@ namespace a14468_employes_management.Controllers
 
             var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -50,8 +51,6 @@ namespace a14468_employes_management.Controllers
         }
 
         // POST: Employees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Employee employee)
@@ -63,8 +62,10 @@ namespace a14468_employes_management.Controllers
             {
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(employee);
         }
 
@@ -77,19 +78,22 @@ namespace a14468_employes_management.Controllers
             }
 
             var employee = await _context.Employees.FindAsync(id);
+
             if (employee == null)
             {
                 return NotFound();
             }
+
             return View(employee);
         }
 
         // POST: Employees/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmpNo,FirstName,MiddleName,LastName,PhoneNumber,EmailAddress,Country,DateOfBirth,Address,Department,Designation,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Employee employee)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("Id,EmpNo,FirstName,MiddleName,LastName,PhoneNumber,EmailAddress,Country,DateOfBirth,Address,Department,Function,Designation,CreatedById,CreatedOn,ModifiedById,ModifiedOn")]
+            Employee employee)
         {
             if (id != employee.Id)
             {
@@ -101,6 +105,7 @@ namespace a14468_employes_management.Controllers
                 try
                 {
                     _context.Update(employee);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -114,8 +119,10 @@ namespace a14468_employes_management.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(employee);
         }
 
@@ -129,6 +136,7 @@ namespace a14468_employes_management.Controllers
 
             var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -143,12 +151,14 @@ namespace a14468_employes_management.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var employee = await _context.Employees.FindAsync(id);
+
             if (employee != null)
             {
                 _context.Employees.Remove(employee);
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
